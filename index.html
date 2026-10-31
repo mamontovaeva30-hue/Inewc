@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#160d12">
+    <title>CONDEMNED — Interactive Story</title>
+
+    <!-- ПОДКЛЮЧЕНИЕ СТИЛЕЙ -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/messenger.css">
+    <link rel="stylesheet" href="./css/notifications.css">
+
+    <!-- ПОДКЛЮЧЕНИЕ ВСЕЙ СИСТЕМЫ -->
+    <script src="./js/saves.js" defer></script>
+    <script src="./js/conversations.js" defer></script>
+    <script src="./js/calls.js" defer></script>
+    <script src="./js/messenger.js" defer></script>
+    <script src="./js/relationships.js" defer></script>
+    <script src="./js/events.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</head>
+
+<body>
+
+<div id="loading-screen">
+    <h1>CONDEMNED</h1>
+    <p>Подключение к закрытой сети...</p>
+</div>
+
+<div id="game">
+
+    <header class="top-bar">
+        <div class="logo">
+            <h1>CONDEMNED</h1>
+            <span>PRIVATE NETWORK</span>
+        </div>
+        <div class="player-info">
+            <span>ДОМИНИКА ЧЕРНОВА</span>
+            <span class="online-status">● В сети</span>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ГЛАВНЫЙ ЭКРАН -->
+        <section id="home-screen" class="screen active">
+
+            <div class="welcome">
+                <p class="eyebrow">ЛИЧНАЯ СИСТЕМА · ДОСТУП ОТКРЫТ</p>
+                <h2>Добро пожаловать,<br>госпожа Чернова.</h2>
+                <p>Все события имеют последствия. Контролируйте свои решения.</p>
+            </div>
+
+            <div class="panel current-episode">
+                <span class="section-label">ТЕКУЩИЙ ЭПИЗОД</span>
+                <h2 id="episode-name">THE CONTRACT</h2>
+                <p id="episode-number">Глава 01 · Контракт</p>
+                <div class="progress-track">
+                    <div id="episode-progress-bar"></div>
+                </div>
+                <p id="episode-progress-text">Прогресс: 0%</p>
+                <button id="continue-button">ПРОДОЛЖИТЬ ИСТОРИЮ</button>
+            </div>
+
+            <div class="panel current-task">
+                <span class="section-label">ТЕКУЩЕЕ ЗАДАНИЕ</span>
+                <h3 id="task-title">Изучить полученное досье</h3>
+                <p id="task-description">
+                    Откройте документы и изучите информацию о Скарлетт Хейл.
+                </p>
+                <button id="task-button">ПЕРЕЙТИ К ЗАДАНИЮ</button>
+                <p>Нужна помощь? Откройте раздел «Подсказки».</p>
+            </div>
+
+            <h3 class="section-heading">ГЛАВНОЕ МЕНЮ</h3>
+
+            <div class="menu-grid">
+
+                <button class="menu-card" data-screen="messenger-screen">
+                    <span>✉</span>
+                    <strong>Сообщения</strong>
+                    <small>Переписки и звонки</small>
+                    <span id="message-count">0</span>
+                </button>
+
+                <button class="menu-card" data-screen="episodes-screen">
+                    <span>▤</span>
+                    <strong>Эпизоды</strong>
+                    <small>18 серий первого сезона</small>
+                </button>
+
+                <button class="menu-card" data-screen="characters-screen">
+                    <span>♙</span>
+                    <strong>Персонажи</strong>
+                    <small>Досье и информация</small>
+                </button>
+
+                <button class="menu-card" data-screen="relationships-screen">
+                    <span>♡</span>
+                    <strong>Отношения</strong>
+                    <small>Доверие и чувства</small>
+                </button>
+
+                <button class="menu-card" data-screen="dossier-screen">
+                    <span>▣</span>
+                    <strong>Досье</strong>
+                    <small>Документы и улики</small>
+                </button>
+
+                <button class="menu-card" data-screen="map-screen">
+                    <span>⌖</span>
+                    <strong>Карта</strong>
+                    <small>Локации и встречи</small>
+                </button>
+
+                <button class="menu-card" data-screen="calendar-screen">
+                    <span>▦</span>
+                    <strong>Календарь</strong>
+                    <small>События и планы</small>
+                </button>
+
+                <button class="menu-card" data-screen="gallery-screen">
+                    <span>▧</span>
+                    <strong>Галерея</strong>
+                    <small>Фотографии и воспоминания</small>
+                </button>
+
+                <button class="menu-card" data-screen="help-screen">
+                    <span>?</span>
+                    <strong>Подсказки</strong>
+                    <small>Что делать дальше</small>
+                </button>
+
+                <button class="menu-card" data-screen="settings-screen">
+                    <span>⚙</span>
+                    <strong>Настройки</strong>
+                    <small>Сохранения и параметры</small>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- ЭПИЗОДЫ -->
+        <section id="episodes-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ПЕРВЫЙ СЕЗОН</h2>
+            <p>18 эпизодов · 18 историй · Твои решения</p>
+
+            <div id="episode-list">
+                <article class="episode-card unlocked" data-episode="1">
+                    <span>01</span><div><h3>THE CONTRACT</h3><p>Контракт</p><small>Доступен</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="2">
+                    <span>02</span><div><h3>FIRST IMPRESSION</h3><p>Первое впечатление</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="3">
+                    <span>03</span><div><h3>BAD COMPANY</h3><p>Плохая компания</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="4">
+                    <span>04</span><div><h3>DIGITAL GHOST</h3><p>Цифровой призрак</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="5">
+                    <span>05</span><div><h3>NO TRUST</h3><p>Нет доверия</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="6">
+                    <span>06</span><div><h3>AFTER HOURS</h3><p>После полуночи</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="7">
+                    <span>07</span><div><h3>THE HEIRS</h3><p>Наследники</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="8">
+                    <span>08</span><div><h3>PRIVATE ACCESS</h3><p>Закрытый доступ</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="9">
+                    <span>09</span><div><h3>THE OTHER SIDE</h3><p>Другая сторона</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="10">
+                    <span>10</span><div><h3>DOUBLE GAME</h3><p>Двойная игра</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="11">
+                    <span>11</span><div><h3>NO MERCY</h3><p>Без пощады</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="12">
+                    <span>12</span><div><h3>THE NIGHT WE MET</h3><p>Ночь нашей встречи</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="13">
+                    <span>13</span><div><h3>THE BETRAYAL</h3><p>Предательство</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="14">
+                    <span>14</span><div><h3>OPEN SECRETS</h3><p>Открытые секреты</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="15">
+                    <span>15</span><div><h3>THE PRICE</h3><p>Цена выбора</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="16">
+                    <span>16</span><div><h3>COLLAPSE</h3><p>Крах</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="17">
+                    <span>17</span><div><h3>NO WAY BACK</h3><p>Пути назад нет</p><small>Заблокирован</small></div>
+                </article>
+                <article class="episode-card locked" data-episode="18">
+                    <span>18</span><div><h3>CONDEMNED</h3><p>Приговор</p><small>Заблокирован</small></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- МЕССЕНДЖЕР -->
+        <section id="messenger-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>MESSENGER</h2>
+            <p>CONDEMNED PRIVATE NETWORK</p>
+
+            <div class="chat-list">
+                <button class="chat-card" data-chat="scarlett">
+                    <strong>СКАРЛЕТТ ХЕЙЛ</strong>
+                    <small>VANTA TECHNOLOGIES</small>
+                    <span>Открыть переписку →</span>
+                </button>
+                <button class="chat-card" data-chat="damian">
+                    <strong>ДАМИАН РИД</strong>
+                    <small>CONDEMNED</small>
+                    <span>Открыть переписку →</span>
+                </button>
+                <button class="chat-card" data-chat="miranda">
+                    <strong>МИРАНДА КЕЙН</strong>
+                    <small>АНАЛИТИКА</small>
+                    <span>Открыть переписку →</span>
+                </button>
+                <button class="chat-card" data-chat="group">
+                    <strong>THE INNER CIRCLE</strong>
+                    <small>ГРУППОВОЙ ЧАТ</small>
+                    <span>Открыть переписку →</span>
+                </button>
+            </div>
+
+            <div id="chat-window" hidden>
+                <h3 id="chat-title"></h3>
+                <div id="chat-messages"></div>
+                <div id="chat-choices"></div>
+            </div>
+        </section>
+
+        <!-- ПЕРСОНАЖИ -->
+        <section id="characters-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ПЕРСОНАЖИ</h2>
+
+            <div class="panel"><h3>Доминика Чернова</h3><p>24 года · Руководитель CONDEMNED</p></div>
+            <div class="panel"><h3>Скарлетт Хейл</h3><p>23 года · Основательница VANTA TECHNOLOGIES · Бывшая хакерша GHOST</p></div>
+            <div class="panel"><h3>Дамиан Рид</h3><p>29 лет · Правая рука Доминики</p></div>
+            <div class="panel"><h3>Миранда Кейн</h3><p>26 лет · Руководитель аналитики</p></div>
+            <div class="panel"><h3>Ричард Хейл</h3><p>52 года · Отец Скарлетт</p></div>
+            <div class="panel"><h3>Эвелин Кросс</h3><p>25 лет · Подруга Скарлетт</p></div>
+        </section>
+
+        <!-- ОТНОШЕНИЯ -->
+        <section id="relationships-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ОТНОШЕНИЯ</h2>
+            <div class="panel">
+                <h3>ДОМИНИКА × СКАРЛЕТТ</h3>
+                <p>Доверие</p>
+                <div class="progress-track"><div id="trust-bar"></div></div>
+                <p>Химия</p>
+                <div class="progress-track"><div id="chemistry-bar"></div></div>
+                <p id="relationship-status">Отношения ещё не определены.</p>
+            </div>
+            <div class="panel">
+                <h3>История решений</h3>
+                <p id="choice-history">История решений появится здесь.</p>
+            </div>
+        </section>
+
+        <!-- ДОСЬЕ -->
+        <section id="dossier-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ДОСЬЕ</h2>
+            <p>Собранные материалы, документы и улики.</p>
+            <div id="evidence-list" class="panel">Пока нет собранных улик.</div>
+        </section>
+
+        <!-- КАРТА -->
+        <section id="map-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>КАРТА</h2>
+            <div class="panel"><h3>МОСКВА</h3><p>Главный офис CONDEMNED</p></div>
+            <div class="panel"><h3>НЬЮ-ЙОРК</h3><p>Штаб-квартира VANTA TECHNOLOGIES</p></div>
+            <div class="panel"><h3>ЗАКРЫТЫЙ КЛУБ</h3><p>Место встреч влиятельных людей.</p></div>
+        </section>
+
+        <!-- КАЛЕНДАРЬ -->
+        <section id="calendar-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>КАЛЕНДАРЬ</h2>
+            <div class="panel"><p>Встречи, мероприятия и важные даты истории.</p></div>
+        </section>
+
+        <!-- ГАЛЕРЕЯ -->
+        <section id="gallery-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ГАЛЕРЕЯ</h2>
+            <div class="panel">
+                <p>Фотографии персонажей, воспоминания и сюжетные снимки.</p>
+                <p>Изображения будут храниться в assets/photos/.</p>
+            </div>
+        </section>
+
+        <!-- ПОДСКАЗКИ -->
+        <section id="help-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>ПОМОЩЬ И ПОДСКАЗКИ</h2>
+            <div class="panel">
+                <h3>Как проходить игру?</h3>
+                <p>
+                    1. Откройте текущий эпизод.<br>
+                    2. Выполняйте задания.<br>
+                    3. Общайтесь с персонажами.<br>
+                    4. Решайте головоломки.<br>
+                    5. Делайте выборы.<br>
+                    6. Завершайте эпизоды, чтобы открывать следующие.
+                </p>
+            </div>
+            <div class="panel">
+                <h3>Если вы застряли</h3>
+                <p>У заданий будут инструкции и система подсказок.</p>
+            </div>
+        </section>
+
+        <!-- НАСТРОЙКИ -->
+        <section id="settings-screen" class="screen">
+            <button class="back-button" data-screen="home-screen">← ГЛАВНОЕ МЕНЮ</button>
+            <h2>НАСТРОЙКИ</h2>
+            <div class="panel">
+                <h3>Сохранение</h3>
+                <p>Прогресс будет сохраняться в браузере.</p>
+                <button id="save-button">СОХРАНИТЬ ИГРУ</button>
+            </div>
+            <div class="panel">
+                <h3>Управление</h3>
+                <p>Интерфейс адаптируется под iPad и компьютер.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+    <nav class="bottom-nav">
+        <button data-screen="home-screen"><span>⌂</span><small>Главная</small></button>
+        <button data-screen="messenger-screen"><span>✉</span><small>Чаты</small></button>
+        <button data-screen="episodes-screen"><span>▤</span><small>Эпизоды</small></button>
+        <button data-screen="relationships-screen"><span>♡</span><small>Отношения</small></button>
+    </nav>
+
+</div>
+
+</body>
+</html>
